@@ -1,9 +1,8 @@
-#include "CQueue.h"
-
 CQueue *CQueueCreate(void)
 {
     CQueue *q = (CQueue *)calloc(1, sizeof(CQueue));
     q->rear = q->front = NULL;
+    q->size = 0;
     return q;
 }
 
@@ -21,6 +20,7 @@ void CEnQueue(CQueue *q, ElementType val)
         q->rear->next = newNode;
         q->rear = newNode;
     }
+    ++q->size;
 }
 
 ElementType CDeQueue(CQueue *q)
@@ -30,10 +30,16 @@ ElementType CDeQueue(CQueue *q)
     q->front = delNode->next;
     if(q->front == NULL) q->rear = NULL;
     free(delNode);
+    --q->size;
     return result;
 }
 
-int CQueueIsEmpty(CQueue *q)
+int CQueueSize(const CQueue *q)
+{
+    return q->size;
+}
+
+int CQueueIsEmpty(const CQueue *q)
 {
     return (q->rear == NULL);
 }
@@ -43,4 +49,3 @@ void CQueueFree(CQueue *q)
     while(!CQueueIsEmpty(q)) CDeQueue(q);
     free(q);
 }
-

@@ -10,12 +10,14 @@ typedef struct node {
 typedef struct {
     CNode *front;//actually is the head node
     CNode *rear;
+    int size;
 } CQueue;
 
 CQueue *CQueueCreate(void);
 void CEnQueue(CQueue *q, ElementType val);
 ElementType CDeQueue(CQueue *q);
-int CQueueIsEmpty(CQueue *q);
+int CQueueSize(const CQueue *q);
+int CQueueIsEmpty(const CQueue *q);
 void CQueueFree(CQueue *q);
 
 
